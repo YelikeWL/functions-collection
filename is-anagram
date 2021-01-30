@@ -1,0 +1,17 @@
+''' Two words are anagrams if they contain the same letters. 
+For example, silent and listen are anagrams. '''
+
+# Prompt s1 and s2
+s1 = list(str(input("Enter string 1:")))
+s2 = list(str(input("Enter string 2:")))
+
+# main
+s1.sort()
+s2.sort()
+
+def isAnagram(s1, s2):
+    if s1 == s2:
+        print("is an anagram")
+    else:
+        print("is not an anagram")
+isAnagram(s1,s2)
