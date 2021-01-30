@@ -1,0 +1,32 @@
+'''An emirp (prime spelled backward) is a nonpalindromic prime number whose reversal is also a prime. 
+For example, both 17 and 71 are prime numbers, so 17 and 71 are emirps.
+Write a program to displays the first 100 emirps with 10 emirps per line.'''
+
+def reverse(num):         # reverse the number (e.g. 17 -> 17)
+    n = 0
+    while num != 0:
+        rem = num % 10
+        n = n*10 + rem
+        num = num // 10
+    return n
+
+def isPrime(num):
+    divider = num//2
+    for i in range(2,divider+1):
+        if num % i == 0:      # dividable means is not a prime
+            return False
+    return True               # is a prime
+
+# main
+num = 10
+count = 0
+while count < 100:
+    if isPrime(num) == True:
+        r = reverse(num)
+        if isPrime(r) == True and r != num:
+            count += 1
+            if count % 10 == 0:
+                print('%5d'%(num))
+            else:
+                print('%5d'%(num), end='')
+    num += 1
