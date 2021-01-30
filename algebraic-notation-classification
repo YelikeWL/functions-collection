@@ -1,0 +1,76 @@
+'''Write a Python class that inputs a polynomial in standard algebraic notation and outputs
+the first derivative of that polynomial. Both the inputted polynomial and its derivative
+should be represented as strings.
+
+Note: 
+(1) The inputted polynomial will contain only one variable, and the variable is not 
+necessarily ‘x’; 
+(2) In the inputted polynomial, the terms are not necessarily arranged in
+descending or ascending orders. '''
+
+class Derivation:
+    def __init__(self, eq:str):
+        self.eq = eq
+    def getVar(self):
+        if '*' in eq:
+            index = self.eq.index('*')
+            return self.eq[index+1]
+        elif '^' in eq:
+            index = self.eq.index('^')
+            return self.eq[index-1]
+    def getCoef(self, i):
+        terms = self.eq.split('+')
+        if '*' in terms[i]:
+            splitX = terms[i].split('*')
+            return int(splitX[0])
+        else:
+            return 1
+    def getPower(self, i):
+        terms = self.eq.split('+')
+        if '^' in terms[i]:
+            splitPow = terms[i].split('^')
+            return int(splitPow[1])
+        elif '*' in terms[i] and '^' not in terms[i]:
+            return 1
+    def printResult(self):
+        terms = self.eq.split('+')
+        derivList = []
+        sum = 0
+        try:                        #deals if equation is constant
+            for i in range(len(terms)):
+                sum += int(terms[i])
+            if type(sum) == int:
+                derivList.append('0')
+        except:
+            for i in range(len(terms)):
+                if '*' in terms[i]:       #deals terms with coeficient in front
+                    coef = self.getCoef(i) * self.getPower(i)
+                    var = self.getVar()
+                    power = self.getPower(i) - 1
+                    if power == 1:
+                        derivList.append(str(coef) + '*' + var)
+                    elif power == 0:
+                        derivList.append(str(coef))
+                    elif coef != 0 and power > 1 :
+                        derivList.append(str(coef) + '*' + var + '^' + str(power))
+                elif '*' not in terms[i]:   #deals with no coeficient terms or c = 1
+                    try:                #deals with terms like x^b
+                        var = self.getVar()
+                        coef = self.getPower(i)
+                        power = self.getPower(i) - 1
+                        if power == 1:
+                            derivList.append(str(coef) + '*' + var)
+                        elif power == 0:
+                            derivList.append(str(coef))
+                        else:
+                            derivList.append(str(coef) + '*' + var + '^' + str(power))
+                    except:
+                        try:            #deals with constant numbers
+                            valCons = int(terms[i])     #nothing is appended on the list
+                        except:         #deals derivate of x
+                            derivList.append('1')
+        print("The result of derivation is:", '+'.join(derivList))
+
+eq = str(input("Enter an equation to derive: "))
+y = Derivation(eq)
+y.printResult()
