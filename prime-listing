@@ -1,0 +1,16 @@
+'''Write a program to allow a user to input an integer N, 
+and print all the prime numbers which are smaller than N
+with output at most 8 prime numbers in each line'''
+
+# Prompt N
+N = int(input("Enter a number: "))
+
+# main
+primes=[]
+for PossiblePrimes in range (1, N):
+    count = 0
+    for i in range(2, PossiblePrimes):
+        if(PossiblePrimes % i == 0):
+            count+= 1
+    if (count == 0 and PossiblePrimes != 1):
+        print("%d " %PossiblePrimes, end = ' ')
