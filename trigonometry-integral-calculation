@@ -1,0 +1,28 @@
+'''Write a program to allow the user to specify a trigonometric function f (f can only be
+sin, cos or tan), and input the interval end points a, b and number of sub-intervals n.
+Your program should then calculate the numerical integration of f over [a, b]'''
+
+from math import sin
+from math import cos
+from math import tan
+
+f = str(input("Which function (sin, cos, or tan) to be calculated?"))
+a = float(input("Enter the starting point: "))
+b = float(input("Enter the end point: "))
+n = int(input("Enter the number of sub-intervals: "))
+
+fx=0
+if f == 'sin':
+    for i in range (0, n+1):
+        fx+= sin(a+(b-a)/n*(i-1/2))
+elif f == 'cos':
+    for i in range (0, n+1):
+        fx+= cos(a+(b-a)/n*(i-1/2))
+elif f == 'tan':
+    for i in range (0, n+1):
+        fx+= tan(a+(b-a)/n*(i-1/2))
+else:
+    print("function not recognised")
+result = (b-a)/n * fx
+
+print("The integration of", f, "from %s to %s is:" %(a,b), result)
